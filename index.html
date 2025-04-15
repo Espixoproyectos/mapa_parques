@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Aplicación de Mapas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Leaflet Routing Machine CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <!-- Hoja de estilos personalizada -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class="text-center my-4">Parques Infantiles</h1>
+
+        <!-- Barra de búsqueda y desplegable -->
+        <div class="row mb-3">
+            <div class="col-md-9 offset-md-3">
+                <input id="search-box" type="text" class="form-control mb-2" placeholder="Buscar dirección o lugar...">
+                <select id="puntos-desplegable" class="form-select mb-2">
+                    <option value="">Selecciona un punto de interés</option>
+                </select>
+                <button id="ruta-btn" class="btn btn-primary">Crear Ruta</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Mapa -->
+            <div class="col-md-12">
+                <div id="map" style="height: 600px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Leaflet Routing Machine JS -->
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <!-- Script personalizado -->
+    <script src="script.js"></script>
+</body>
+</html>
