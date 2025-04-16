@@ -498,50 +498,63 @@ puntosDesplegable.addEventListener('change', event => {
     }
 });
 
-// Evento para buscar un punto de interés
+// Referencia al botón de "Buscar"
+const searchBtn = document.getElementById('search-btn');
+
+// Función reutilizable para buscar un punto de interés
+function buscarPuntoDeInteres() {
+    const query = searchBox.value.trim().toLowerCase(); // Texto ingresado por el usuario
+
+    // Validar que window.puntosDeInteres esté definido
+    if (!window.puntosDeInteres) {
+        console.error("La variable puntosDeInteres no está definida.");
+        alert("Error: Los datos de los puntos de interés no están disponibles.");
+        return;
+    }
+
+    // Buscar el punto por nombre o código usando window.puntosDeInteres
+    const puntoEncontrado = window.puntosDeInteres.find(punto =>
+        punto.nombre.toLowerCase().includes(query) || punto.codigo.toLowerCase() === query
+    );
+
+    if (puntoEncontrado) {
+        // Centrar el mapa en las coordenadas del punto encontrado
+        map.setView(puntoEncontrado.coords, 15);
+        selectedPointCoords = puntoEncontrado.coords; // Guardar las coordenadas del punto seleccionado
+
+        // Encontrar el marcador correspondiente al punto seleccionado
+        map.eachLayer(layer => {
+            if (layer instanceof L.Marker && layer.getLatLng().equals(L.latLng(puntoEncontrado.coords))) {
+                // Restaurar el ícono predeterminado para el marcador previamente seleccionado
+                if (selectedMarker) {
+                    selectedMarker.setIcon(defaultIcon);
+                }
+
+                // Cambiar el ícono del marcador seleccionado a rojo
+                layer.setIcon(selectedIcon);
+                selectedMarker = layer; // Actualizar el marcador seleccionado
+            }
+        });
+
+        alert(`Punto encontrado: ${puntoEncontrado.nombre} (${puntoEncontrado.codigo})`);
+    } else {
+        alert("No se encontró ningún punto con ese nombre o código.");
+    }
+
+    // Limpiar el campo de búsqueda
+    searchBox.value = '';
+}
+
+// Evento para buscar cuando se presiona "Enter"
 searchBox.addEventListener('keypress', event => {
     if (event.key === 'Enter') {
-        const query = searchBox.value.trim().toLowerCase(); // Texto ingresado por el usuario
-
-        // Validar que window.puntosDeInteres esté definido
-        if (!window.puntosDeInteres) {
-            console.error("La variable puntosDeInteres no está definida.");
-            alert("Error: Los datos de los puntos de interés no están disponibles.");
-            return;
-        }
-
-        // Buscar el punto por nombre o código usando window.puntosDeInteres
-        const puntoEncontrado = window.puntosDeInteres.find(punto =>
-            punto.nombre.toLowerCase().includes(query) || punto.codigo.toLowerCase() === query
-        );
-
-        if (puntoEncontrado) {
-            // Centrar el mapa en las coordenadas del punto encontrado
-            map.setView(puntoEncontrado.coords, 15);
-            selectedPointCoords = puntoEncontrado.coords; // Guardar las coordenadas del punto seleccionado
-
-            // Encontrar el marcador correspondiente al punto seleccionado
-            map.eachLayer(layer => {
-                if (layer instanceof L.Marker && layer.getLatLng().equals(L.latLng(puntoEncontrado.coords))) {
-                    // Restaurar el ícono predeterminado para el marcador previamente seleccionado
-                    if (selectedMarker) {
-                        selectedMarker.setIcon(defaultIcon);
-                    }
-
-                    // Cambiar el ícono del marcador seleccionado a rojo
-                    layer.setIcon(selectedIcon);
-                    selectedMarker = layer; // Actualizar el marcador seleccionado
-                }
-            });
-
-            alert(`Punto encontrado: ${puntoEncontrado.nombre} (${puntoEncontrado.codigo})`);
-        } else {
-            alert("No se encontró ningún punto con ese nombre o código.");
-        }
-
-        // Limpiar el campo de búsqueda
-        searchBox.value = '';
+        buscarPuntoDeInteres();
     }
+});
+
+// Evento para buscar cuando se hace clic en el botón de "Buscar"
+searchBtn.addEventListener('click', () => {
+    buscarPuntoDeInteres();
 });
 
 // Función para obtener la ubicación actual del usuario

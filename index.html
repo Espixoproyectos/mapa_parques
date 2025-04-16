@@ -20,10 +20,16 @@
         <!-- Barra de búsqueda y desplegable -->
         <div class="row mb-3">
             <div class="col-md-9 offset-md-3">
-                <input id="search-box" type="text" class="form-control mb-2" placeholder="Buscar dirección o lugar...">
+            <!-- Contenedor para el campo de búsqueda y el botón -->
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <input id="search-box" type="text" class="form-control" placeholder="Buscar código o dirección" style="flex-grow: 1; margin-right: 10px;">
+            <button id="search-btn" class="btn btn-success">Buscar</button>
+        </div>        
+        <!-- Desplegable de puntos de interés -->
                 <select id="puntos-desplegable" class="form-select mb-2">
-                    <option value="">Selecciona un punto de interés</option>
+                    <option value="">Seleccionar</option>
                 </select>
+        <!-- Botón para crear ruta -->
                 <button id="ruta-btn" class="btn btn-primary">Crear Ruta</button>
             </div>
         </div>
