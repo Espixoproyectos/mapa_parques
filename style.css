@@ -39,21 +39,7 @@ h1 {
     padding: 0 15px; /* Usa padding moderado */
     margin: 0 auto; /* Centra el contenido */
 }
-/* Estilos para pantallas pequeñas (móviles) */
-@media (max-width: 768px) {
-    body {
-        font-size: 14px; /* Reduce el tamaño del texto */
-    }
 
-    #map {
-        height: 50vh; /* Reduce el alto del mapa en móviles */
-    }
-
-    .btn {
-        font-size: 12px; /* Reduce el tamaño de los botones */
-        padding: 8px 12px; /* Reduce el padding */
-    }
-}
 /* Estilo para el diálogo de búsqueda */
 #search-result {
     display: none;
